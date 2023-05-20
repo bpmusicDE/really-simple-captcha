@@ -6,10 +6,10 @@ Description: Really Simple CAPTCHA is a CAPTCHA module intended to be called fro
 Author: Takayuki Miyoshi
 Author URI: https://ideasilo.wordpress.com/
 Text Domain: really-simple-captcha
-Version: 2.1
+Version: 2.2-dev
 */
 
-define( 'REALLYSIMPLECAPTCHA_VERSION', '2.1' );
+define( 'REALLYSIMPLECAPTCHA_VERSION', '2.2-dev' );
 
 class ReallySimpleCaptcha {
 
