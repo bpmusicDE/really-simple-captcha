@@ -122,7 +122,7 @@ class ReallySimpleCaptcha {
 
 			for ( $i = 0; $i < strlen( $word ); $i++ ) {
 				$font = $this->fonts[array_rand( $this->fonts )];
-				$font = $this->normalize_path( $font );
+				$font = wp_normalize_path( $font );
 
 				imagettftext( $im, $this->font_size, mt_rand( -12, 12 ), $x,
 					$this->base[1] + mt_rand( -2, 2 ), $fg, $font, $word[$i] );
@@ -132,18 +132,18 @@ class ReallySimpleCaptcha {
 			switch ( $this->img_type ) {
 				case 'jpeg':
 					$filename = sanitize_file_name( $prefix . '.jpeg' );
-					$file = $this->normalize_path( $dir . $filename );
+					$file = wp_normalize_path( $dir . $filename );
 					imagejpeg( $im, $file );
 					break;
 				case 'gif':
 					$filename = sanitize_file_name( $prefix . '.gif' );
-					$file = $this->normalize_path( $dir . $filename );
+					$file = wp_normalize_path( $dir . $filename );
 					imagegif( $im, $file );
 					break;
 				case 'png':
 				default:
 					$filename = sanitize_file_name( $prefix . '.png' );
-					$file = $this->normalize_path( $dir . $filename );
+					$file = wp_normalize_path( $dir . $filename );
 					imagepng( $im, $file );
 			}
 
@@ -165,7 +165,7 @@ class ReallySimpleCaptcha {
 	public function generate_answer_file( $prefix, $word ) {
 		$dir = trailingslashit( $this->tmp_dir );
 		$answer_file = $dir . sanitize_file_name( $prefix . '.txt' );
-		$answer_file = $this->normalize_path( $answer_file );
+		$answer_file = wp_normalize_path( $answer_file );
 
 		if ( $fh = fopen( $answer_file, 'w' ) ) {
 			$word = strtoupper( $word );
@@ -196,7 +196,7 @@ class ReallySimpleCaptcha {
 
 		$dir = trailingslashit( $this->tmp_dir );
 		$filename = sanitize_file_name( $prefix . '.txt' );
-		$file = $this->normalize_path( $dir . $filename );
+		$file = wp_normalize_path( $dir . $filename );
 
 		if ( is_readable( $file )
 		and $code = file_get_contents( $file ) ) {
@@ -223,7 +223,7 @@ class ReallySimpleCaptcha {
 
 		foreach ( $suffixes as $suffix ) {
 			$filename = sanitize_file_name( $prefix . $suffix );
-			$file = $this->normalize_path( $dir . $filename );
+			$file = wp_normalize_path( $dir . $filename );
 
 			if ( is_file( $file ) ) {
 				@unlink( $file );
@@ -239,7 +239,7 @@ class ReallySimpleCaptcha {
 	 */
 	public function cleanup( $minutes = 60, $max = 100 ) {
 		$dir = trailingslashit( $this->tmp_dir );
-		$dir = $this->normalize_path( $dir );
+		$dir = wp_normalize_path( $dir );
 
 		if ( ! is_dir( $dir )
 		or ! is_readable( $dir ) ) {
@@ -260,7 +260,7 @@ class ReallySimpleCaptcha {
 					continue;
 				}
 
-				$file = $this->normalize_path( $dir . $filename );
+				$file = wp_normalize_path( $dir . $filename );
 
 				if ( ! file_exists( $file )
 				or ! $stat = stat( $file ) ) {
@@ -294,13 +294,13 @@ class ReallySimpleCaptcha {
 	 */
 	public function make_tmp_dir() {
 		$dir = trailingslashit( $this->tmp_dir );
-		$dir = $this->normalize_path( $dir );
+		$dir = wp_normalize_path( $dir );
 
 		if ( ! wp_mkdir_p( $dir ) ) {
 			return false;
 		}
 
-		$htaccess_file = $this->normalize_path( $dir . '.htaccess' );
+		$htaccess_file = wp_normalize_path( $dir . '.htaccess' );
 
 		if ( file_exists( $htaccess_file ) ) {
 			return true;
@@ -318,18 +318,4 @@ class ReallySimpleCaptcha {
 		return true;
 	}
 
-	/**
-	 * Normalize a filesystem path.
-	 *
-	 * This should be replaced by wp_normalize_path when the plugin's
-	 * minimum requirement becomes WordPress 3.9 or higher.
-	 *
-	 * @param string $path Path to normalize.
-	 * @return string Normalized path.
-	 */
-	private function normalize_path( $path ) {
-		$path = str_replace( '\\', '/', $path );
-		$path = preg_replace( '|/+|', '/', $path );
-		return $path;
-	}
 }
