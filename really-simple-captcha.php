@@ -36,14 +36,14 @@ class ReallySimpleCaptcha {
 
 		/* Array of fonts. Randomly picked up per character */
 		$this->fonts = array(
-			dirname( __FILE__ ) . '/gentium/GenBkBasR.ttf',
-			dirname( __FILE__ ) . '/gentium/GenBkBasI.ttf',
-			dirname( __FILE__ ) . '/gentium/GenBkBasBI.ttf',
-			dirname( __FILE__ ) . '/gentium/GenBkBasB.ttf',
+			path_join( __DIR__, 'gentium/GenBkBasR.ttf' ),
+			path_join( __DIR__, 'gentium/GenBkBasI.ttf' ),
+			path_join( __DIR__, 'gentium/GenBkBasBI.ttf' ),
+			path_join( __DIR__, 'gentium/GenBkBasB.ttf' ),
 		);
 
 		/* Directory temporary keeping CAPTCHA images and corresponding text files */
-		$this->tmp_dir = path_join( dirname( __FILE__ ), 'tmp' );
+		$this->tmp_dir = path_join( __DIR__, 'tmp' );
 
 		/* Array of CAPTCHA image size. Width and height */
 		$this->img_size = array( 72, 24 );
