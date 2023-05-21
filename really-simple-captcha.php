@@ -124,26 +124,29 @@ class ReallySimpleCaptcha {
 				$font = $this->fonts[array_rand( $this->fonts )];
 				$font = wp_normalize_path( $font );
 
-				imagettftext( $im, $this->font_size, mt_rand( -12, 12 ), $x,
-					$this->base[1] + mt_rand( -2, 2 ), $fg, $font, $word[$i] );
+				imagettftext(
+					$im, $this->font_size, mt_rand( -12, 12 ), $x,
+					$this->base[1] + mt_rand( -2, 2 ), $fg, $font, $word[$i]
+				);
+
 				$x += $this->font_char_width;
 			}
 
 			switch ( $this->img_type ) {
 				case 'jpeg':
 					$filename = sanitize_file_name( $prefix . '.jpeg' );
-					$file = wp_normalize_path( $dir . $filename );
+					$file = wp_normalize_path( path_join( $dir, $filename ) );
 					imagejpeg( $im, $file );
 					break;
 				case 'gif':
 					$filename = sanitize_file_name( $prefix . '.gif' );
-					$file = wp_normalize_path( $dir . $filename );
+					$file = wp_normalize_path( path_join( $dir, $filename ) );
 					imagegif( $im, $file );
 					break;
 				case 'png':
 				default:
 					$filename = sanitize_file_name( $prefix . '.png' );
-					$file = wp_normalize_path( $dir . $filename );
+					$file = wp_normalize_path( path_join( $dir, $filename ) );
 					imagepng( $im, $file );
 			}
 
@@ -164,7 +167,7 @@ class ReallySimpleCaptcha {
 	 */
 	public function generate_answer_file( $prefix, $word ) {
 		$dir = trailingslashit( $this->tmp_dir );
-		$answer_file = $dir . sanitize_file_name( $prefix . '.txt' );
+		$answer_file = path_join( $dir, sanitize_file_name( $prefix . '.txt' ) );
 		$answer_file = wp_normalize_path( $answer_file );
 
 		if ( $fh = fopen( $answer_file, 'w' ) ) {
@@ -187,7 +190,7 @@ class ReallySimpleCaptcha {
 	 * @return bool Return true if the two match, otherwise return false.
 	 */
 	public function check( $prefix, $response ) {
-		if ( 0 == strlen( $prefix ) ) {
+		if ( 0 === strlen( $prefix ) ) {
 			return false;
 		}
 
@@ -196,7 +199,7 @@ class ReallySimpleCaptcha {
 
 		$dir = trailingslashit( $this->tmp_dir );
 		$filename = sanitize_file_name( $prefix . '.txt' );
-		$file = wp_normalize_path( $dir . $filename );
+		$file = wp_normalize_path( path_join( $dir, $filename ) );
 
 		if ( is_readable( $file )
 		and $code = file_get_contents( $file ) ) {
@@ -223,7 +226,7 @@ class ReallySimpleCaptcha {
 
 		foreach ( $suffixes as $suffix ) {
 			$filename = sanitize_file_name( $prefix . $suffix );
-			$file = wp_normalize_path( $dir . $filename );
+			$file = wp_normalize_path( path_join( $dir, $filename ) );
 
 			if ( is_file( $file ) ) {
 				@unlink( $file );
@@ -260,7 +263,7 @@ class ReallySimpleCaptcha {
 					continue;
 				}
 
-				$file = wp_normalize_path( $dir . $filename );
+				$file = wp_normalize_path( path_join( $dir, $filename ) );
 
 				if ( ! file_exists( $file )
 				or ! $stat = stat( $file ) ) {
@@ -300,7 +303,7 @@ class ReallySimpleCaptcha {
 			return false;
 		}
 
-		$htaccess_file = wp_normalize_path( $dir . '.htaccess' );
+		$htaccess_file = wp_normalize_path( path_join( $dir, '.htaccess' ) );
 
 		if ( file_exists( $htaccess_file ) ) {
 			return true;
