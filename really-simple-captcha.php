@@ -270,7 +270,7 @@ class ReallySimpleCaptcha {
 					continue;
 				}
 
-				if ( ( $stat['mtime'] + $minutes * 60 ) < time() ) {
+				if ( ( $stat['mtime'] + $minutes * MINUTE_IN_SECONDS ) < time() ) {
 					if ( ! @unlink( $file ) ) {
 						@chmod( $file, 0644 );
 						@unlink( $file );
