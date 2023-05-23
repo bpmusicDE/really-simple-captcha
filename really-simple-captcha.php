@@ -1,13 +1,16 @@
 <?php
 /*
-Plugin Name: Really Simple CAPTCHA
-Plugin URI: https://contactform7.com/captcha/
-Description: Really Simple CAPTCHA is a CAPTCHA module intended to be called from other plugins. It is originally created for my Contact Form 7 plugin.
-Author: Takayuki Miyoshi
-Author URI: https://ideasilo.wordpress.com/
-Text Domain: really-simple-captcha
-Version: 2.2-dev
-*/
+ * Plugin Name: Really Simple CAPTCHA
+ * Plugin URI: https://contactform7.com/captcha/
+ * Description: Really Simple CAPTCHA is a CAPTCHA module intended to be called from other plugins. It is originally created for my Contact Form 7 plugin.
+ * Author: Takayuki Miyoshi
+ * Author URI: https://ideasilo.wordpress.com/
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Version: 2.2-dev
+ * Requires at least: 6.1
+ * Requires PHP: 7.4
+ */
 
 define( 'REALLYSIMPLECAPTCHA_VERSION', '2.2-dev' );
 
