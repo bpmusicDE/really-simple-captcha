@@ -7,12 +7,12 @@
  * Author URI: https://ideasilo.wordpress.com/
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Version: 2.2-dev
+ * Version: 2.2
  * Requires at least: 6.1
  * Requires PHP: 7.4
  */
 
-define( 'REALLYSIMPLECAPTCHA_VERSION', '2.2-dev' );
+define( 'REALLYSIMPLECAPTCHA_VERSION', '2.2' );
 
 class ReallySimpleCaptcha {
 
