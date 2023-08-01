@@ -262,7 +262,7 @@ class ReallySimpleCaptcha {
 
 		if ( $handle = opendir( $dir ) ) {
 			while ( false !== ( $filename = readdir( $handle ) ) ) {
-				if ( ! preg_match( '/^[0-9]+\.(php|txt|png|gif|jpeg)$/', $filename ) ) {
+				if ( ! preg_match( '/^[0-9A-Za-z]+\.(php|txt|png|gif|jpeg)$/', $filename ) ) {
 					continue;
 				}
 
